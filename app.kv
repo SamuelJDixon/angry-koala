@@ -1,0 +1,97 @@
+BoxLayout:
+    id: mainBox
+    Popup:
+        id: popup
+        title: "Add a New Hire Item"
+        on_parent:
+            # Make popup disappear immediately
+            if self.parent == mainBox: self.parent.remove_widget(self)
+        BoxLayout:
+            # layout for input fields and action buttons
+            id: inputs
+            orientation: 'vertical'
+            Label:
+                text: 'Item Name: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: item_name
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                # the next two lines make it so that pressing Tab moves the cursor
+                # to the next input field instead of entering the Tab character
+                multiline: False
+                write_tab: False
+            Label:
+                text: 'Description: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: item_description
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                # the next two lines make it so that pressing Tab moves the cursor
+                # to the next input field instead of entering the Tab character
+                multiline: False
+                write_tab: False
+            Label:
+                text: 'Price Per Day: '
+                size_hint_y: None
+                height: '48dp'
+            TextInput:
+                id: item_price
+                value: ''
+                size_hint_y: None
+                height: '48dp'
+                multiline: False
+                write_tab: False
+            Button:
+                text: 'Save Item'
+                on_release: app.press_save(item_name.text, item_description.text, item_price.text)
+            Button:
+                text: 'Cancel'
+                on_release: app.press_cancel()
+            Label:
+                # this is a different Label than the main GUI screen,
+                # but uses the same string data
+                text: app.status_text
+    BoxLayout:
+        orientation: 'vertical'
+        BoxLayout:
+            orientation: 'horizontal'
+            GridLayout:
+                cols: 1
+                orientation: 'vertical'
+                size_hint_x: 0.3
+                Button:
+                    id: view_button
+                    text: 'View Items'
+                    on_release: app.press_view()
+                Button:
+                    id: hire_button
+                    text: 'Hire Items'
+                    on_release: app.press_hire()
+                Button:
+                    id: return_button
+                    text: 'Return Items'
+                    on_release: app.press_return()
+                Button:
+                    id: confirm_button
+                    text: 'Confirm'
+                    on_release: app.press_confirm()
+                Button:
+                    id: add_items_button
+                    text: 'Add Items'
+                    on_release: app.press_add_items()
+
+            GridLayout:
+                # this layout is populated with (button) widgets in app code
+                id: auto_widget
+                cols: 2
+                orientation: 'vertical'
+        Label:
+            id: statusLabel
+            text: app.status_text
+            size_hint_y: 0.1
